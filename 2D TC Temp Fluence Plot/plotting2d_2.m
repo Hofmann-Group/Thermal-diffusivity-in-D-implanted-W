@@ -7,7 +7,8 @@
 % simillary plotting_2d will create the data for samples 1 and 4
 % then using the last 2 sections of  plotting2d we can
 % generate the main plot 
-
+% uncomment line 240 to save the data - it is commented since it would
+% otherwise overwrite the existing data
 
 
 clc
@@ -236,42 +237,45 @@ scatter(fit1_2(ind),fit2_2(ind),120,map_diffuse_2(ind),'^','filled','LineWidth',
 
 hold on 
 
-%save('TC_fluence_temp_data_samples_1_4.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
-clear all
-%% loading and plotting the high temp ones 
-
-load('TC_fluence_temp_data_samples_1_4.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
-
-% finding the values that are zero in the fluence and making them 1E25 for
-% hte log plot 
-k2=find(~fit1_1);
-fit1_1(k2)=1e25;
-
-k2=find(~fit1_2);
-fit1_2(k2)=1e25;
+%% saving 
+% save('TC_fluence_temp_data_samples_1_4.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
 
 
-%% checking indices of the points that are not in the moly affected region 
-% if(q==1)
-ind2=find(abs(p)>4.1);
-% else
-     ind3=find(p<-4.1);
-% end
-
-scatter(fit1_1(ind2),fit2_1(ind2),120,map_diffuse_1(ind2),'d','filled','LineWidth',1.5);
-set(gca,'xscale','log')
-grid on
-xlabel('Fluence (m^{-2})','FontSize',14)
-ylabel('Temperature (K)','FontSize',14)
-set(gcf,'color','w');
-set(gca,'fontsize',14);
-c=colorbar;
-c.Label.String='Thermal Diffusivity (m^{2}s^{-1})';
-c.FontSize=14;
-c.Location='westoutside';
-hold on
-scatter(fit1_2(ind3),fit2_2(ind3),120,map_diffuse_2(ind3),'s','filled','LineWidth',1.5);
-legend('HT HD','HT LD','LT LD','LT HD')
-legend('boxoff')
-legend('orientation','horizontal')
-axis([1e25 .2e28 350 650])
+% clear all
+% %% loading and plotting the high temp ones 
+% 
+% load('TC_fluence_temp_data_samples_1_4.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
+% 
+% % finding the values that are zero in the fluence and making them 1E25 for
+% % hte log plot 
+% k2=find(~fit1_1);
+% fit1_1(k2)=1e25;
+% 
+% k2=find(~fit1_2);
+% fit1_2(k2)=1e25;
+% 
+% 
+% %% checking indices of the points that are not in the moly affected region 
+% % if(q==1)
+% ind2=find(abs(p)>4.1);
+% % else
+%      ind3=find(p<-4.1);
+% % end
+% 
+% scatter(fit1_1(ind2),fit2_1(ind2),120,map_diffuse_1(ind2),'d','filled','LineWidth',1.5);
+% set(gca,'xscale','log')
+% grid on
+% xlabel('Fluence (m^{-2})','FontSize',14)
+% ylabel('Temperature (K)','FontSize',14)
+% set(gcf,'color','w');
+% set(gca,'fontsize',14);
+% c=colorbar;
+% c.Label.String='Thermal Diffusivity (m^{2}s^{-1})';
+% c.FontSize=14;
+% c.Location='westoutside';
+% hold on
+% scatter(fit1_2(ind3),fit2_2(ind3),120,map_diffuse_2(ind3),'s','filled','LineWidth',1.5);
+% legend('HT HD','HT LD','LT LD','LT HD')
+% legend('boxoff')
+% legend('orientation','horizontal')
+% axis([1e25 .2e28 350 650])
