@@ -1,21 +1,11 @@
 % this code makes the linear flux profile into a 2D one 
 % it also applies BC's and creates the final processed profiles of flux (z)
 % and temperature (zt)
-% the raw data is imported from the matlab file - temp_flux_profiles.mat
-% it imports a 37x24 matrix of the temp and flux measurements for all
-% samples
-% select the indices such that they capture from 0 to one extreme of the
-% profile 
-% the description of the data for each column is given in the excel file
-
+% the raw data is imported from the excel file - temp_flux_profiles.xlsx
+% for the relevant sample, and input as the variable profiles
 % for certain samples, we take the average of the profiles before and after
 % irradiation, for the temperature profiles
 
-
-% select the indices such that they capture from 0 to one extreme of the
-% profile 
-
-% the description of the data for each column is given in the excel file
 
 %% need to import the profiles data 
 
@@ -41,33 +31,28 @@ load('temp_flux_profiles.mat')
 
 t=70*1; %time - exposed 
 
-
+% selct the indices such that they capture from 0 to one extreme of the
+% profile 
 
 % the 20 shot ones, need the average of before exposure and after exposure
 % for the profiles 
 
-
-% LTLD
 bt1=profiles(17:37,3);
-bt2=profiles(17:37,4); % 
+bt2=profiles(17:37,4); % put the actual ones 
 
-% HTHD
 % bt1=profiles(16:34,23);
 % bt2=profiles(16:34,24);
 % 
 % x=-8:0.5:8;
 % y=-8:0.5:8;
-
-% use the following 2 lines for LTHD 
+% 
 % b1=(profiles(2:21,13)+profiles(1:20,9))/2;
 % b2=(profiles(1:20,14)+profiles(1:20,10))/2;
 % 
-
-% this is for LTLD
 b1=profiles(1:20,1);
 b2=profiles(1:20,2);
 
-% HTHD
+
 % b1=profiles(1:20,21);
 % b2=profiles(1:20,22);
 
@@ -79,7 +64,7 @@ y=-9:.5:9;
 a=zeros(length(x),length(y));
 z=zeros(length(x),length(y));
 
-% putting the data in new maticses where the values of covered region are
+% putting hte data in new maticses where the values of covered region are
 % adjsuted
 
 for i=1:length(x)
@@ -178,15 +163,14 @@ legend('Fluence','Temperature')
 
 
 %% saving 
-% save according to the filenames that will be read by the 2D temp fleunce
-% plotting code 
 
 %save('low_temp_high_dose_profiles_2.mat','y','z','zt')
 
 
-%%  additional plotting 
+%%
 
-
+% 
+% 
 % %% averaging the profiles for the high dose samples 
 % clc
 % clear all

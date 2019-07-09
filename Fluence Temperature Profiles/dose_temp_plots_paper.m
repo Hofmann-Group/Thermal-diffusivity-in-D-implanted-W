@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-load('high_temp_high_dose_profiles_avg.mat')
+load('Processed Profiles/high_temp_high_dose_profiles_avg.mat')
 
 % fig = figure;
 % 
@@ -25,7 +25,7 @@ t_hdht=zt(19,:)+273.16;
 clearvars -except y_hdht fl_hdht t_hdht
 
 
-load('high_temp_low_dose_profiles.mat')
+load('Processed Profiles/high_temp_low_dose_profiles.mat')
 y_ldht=y;
 fl_ldht=t*z(19,:);
 t_ldht=zt(19,:)+273.16;
@@ -33,14 +33,14 @@ t_ldht=zt(19,:)+273.16;
 clearvars -except y_hdht fl_hdht t_hdht y_ldht fl_ldht t_ldht
 
 
-load('low_temp_low_dose_profiles.mat')
+load('Processed Profiles/low_temp_low_dose_profiles.mat')
 y_ldlt=y;
 fl_ldlt=t*z(19,:);
 t_ldlt=zt(19,:)+273.16;
 
 clearvars -except y_hdht fl_hdht t_hdht y_ldht fl_ldht t_ldht y_ldlt fl_ldlt t_ldlt
 
-load('low_temp_high_dose_profiles.mat')
+load('Processed Profiles/low_temp_high_dose_profiles.mat')
 t=1400;
 y_hdlt=y;
 fl_hdlt=t*z(19,:);
