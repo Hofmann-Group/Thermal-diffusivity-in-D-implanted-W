@@ -1,6 +1,7 @@
 Hi ! This is a README for the data + code bundle that supplements the ' Transient grating spectroscopy of thermal diffusivity degradation in deuterium implanted tungsten:  Abdallah Reza, Yevhen Zayachuk, Hongbing Yu, Felix Hofmann' Scripta paper
 Below is a brief description of what the folders contain and a guide of how the codes and data in them can be used to create the figures/data reported in the paper
 
+Note: Sample 1 - HTLD, Sample 2 - LTHD, Sample3 - LTLD, Sample 4 - HTHD. 
 
 
 Folders - 
@@ -28,8 +29,17 @@ Fluence Temperature Profiles - this folder contains the raw temperature and flue
                          - for the high temperature exposure samples and plotting_2d_2 does it for the low temperature samples. The last two sections of plotting_2D then
                          - generates the final 2D plot that is figure 4 of the paper (2D_plot_TC_temp_fluence.fig)
 
+                         - The plotting_2d_supplementary.m will generate figure 4 as well as the supplementary figure S10, with error bars. It requires several data 
+                         - files to run, that are provided in the home folder, as well as in the Processed Profiles and Output Data folders. 2D_plot_TC_temp_fluence_error_bars.fig 
+                         - is the plot it generates. 
+
+
 Casino EDX Probing Depths - this folder contains the x-ray probing depths obtained for the EDX electron probing energies, using the CASINO Monte Carlo simulations
                           - the probing_depths code loads the depth_distributions of the x-rays and finds the 1/e depth, and plots the profiles too. 
+
+
+final_data.xlsx    - This sheet contains the processed data for the thermal diffusivity, 
+                   - fluence and temperature profiles for all four samples. These data are also provided as in MATLAB data files in the relevant folders.
 
 
 
