@@ -7,7 +7,7 @@
 % simillary plotting_2d will create the data for samples 1 and 4
 % then using the last 2 sections of  plotting2d we can
 % generate the main plot 
-% uncomment line 240 to save the data - it is commented since it would
+% uncomment line 241 to save the data - it is commented since it would
 % otherwise overwrite the existing data
 
 
@@ -22,7 +22,7 @@ q=1;
 for q=1:2
 %% first loading and adjusting the TC profile
 if q==1
-        load('Output Data/sample3_line3_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
+        load('Output Data/Data/sample3_line3_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
 %load('sample1_line1_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
 p=p-10.9;
 
@@ -33,7 +33,7 @@ map_diffuse=map_diffuse(1:end-2);
 % p=p(1:end-5);
 % map_diffuse=map_diffuse(1:end-5); 
 else 
-     load('Output Data/sample2_line1_analysis.mat','map_diffuse','std_diffuse','p')
+     load('Output Data/Data/sample2_line1_analysis.mat','map_diffuse','std_diffuse','p')
     %load('sample_4_line2_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
 p=p-.35;
 end

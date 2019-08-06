@@ -1,27 +1,21 @@
-% this code takes in the processed profiles of tmeperature and fluence and
-% the processed TGS data and created the 2D data of Thermal diffusivity
-% with fluence and temperature for the high temperature samples - samples 1
-% and 4
-% run this code without the last two sections and it will create a file
-% 'TC_fluence_temp_data_samples_1_4.mat'
-% simillary plotting_2d_2 will create the data for samples 1 and 3
-% then using the last 2 sections of this code or plotting2d_2 we can
-% generate the main plot 
-
-
-
 clc
 clear all
 close all
 
-% q=1 is the first smaple and then q=2 it loads and does the second sample 
+% running this code after having run plotting2d_2.m and saved the data
+% should generate figure4. The data has already been provided to make
+% things easier.
+% q=1 is the first sample and then q=2 it loads and does the second sample 
 % first plot them and adjust the p value accordingly 
+% uncomment line 250 to save the data if needed 
+
+
 q=1;
 
 for q=1:2
 %% first loading and adjusting the TC profile
 if q==1
-load('Output Data/sample1_line1_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
+load('Output Data/Data/sample1_line1_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
 % p=p-11.5;
 p=p-10.25;   % after review temp issue
 
@@ -29,7 +23,7 @@ p=p-10.25;   % after review temp issue
 p=p(1:end-5);
 map_diffuse=map_diffuse(1:end-5);
 else 
-    load('Output Data/sample_4_line2_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
+    load('Output Data/Data/sample_4_line2_analysis_cleaned.mat','map_diffuse','std_diffuse','p')
 p=p-10;
 end
 n=1;
@@ -237,8 +231,24 @@ xticks([1e25 1e26 1e27])
 xticklabels({'Ref.','10^{26}','10^{27}'})
 hold on 
 
+
+%saving the variables for the suppl plot 
+hind=ind;
+hfit1_1=fit1_1;
+
+hfit2_1=fit2_1;
+
+hmap_diffuse_1=map_diffuse_1;
+
+hfit1_2=fit1_2;
+
+hfit2_2=fit2_2;
+
+hmap_diffuse_2=map_diffuse_2;
+
+
 %save('TC_fluence_temp_data_samples_1_4.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
-clear all
+clear fit1_1 fit2_1 map_diffuse_1 fit1_2 fit2_2 map_diffuse_2
 %% loading and plotting the low temp ones 
 
 load('TC_fluence_temp_data_samples_2_3.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
@@ -253,7 +263,13 @@ fit1_2(k2)=1e25;
 
 
 ind=1:1:length(p);
-ind1=1:1:length(p)-40;
+% ind1=1:1:length(p)-40;
+% % ind1=1:1:length(p);
+% % 
+
+% removes the central drop points in LTHD
+ind1=[1:1:40,46:1:length(p)];
+
 
 scatter(fit1_1(ind),fit2_1(ind),120,map_diffuse_1(ind),'d','filled','LineWidth',1.5);
 set(gca,'xscale','log')
@@ -272,3 +288,145 @@ scatter(fit1_2(ind1),fit2_2(ind1),120,map_diffuse_2(ind1),'s','filled','LineWidt
 % legend('boxoff')
 % legend('orientation','horizontal')
 axis([1e25 .2e28 350 650])
+
+
+% %% plot for supplementary - new figure 
+% 
+% 
+% % getting the error values 
+% 
+%     load('sample3_line3_analysis_cleaned.mat','std_diffuse')
+% LTLD_std_diffuse=std_diffuse;
+% clear std_diffuse
+% 
+%     load('sample2_line1_analysis.mat','std_diffuse')
+% LTHD_std_diffuse=std_diffuse;
+% clear std_diffuse
+% 
+%     load('sample1_line1_analysis_cleaned.mat','std_diffuse')
+% HTHD_std_diffuse=std_diffuse;
+% clear std_diffuse
+% 
+%     load('sample_4_line2_analysis_cleaned.mat','std_diffuse')
+% HTLD_std_diffuse=std_diffuse;
+% clear std_diffuse
+% 
+% 
+% 
+% 
+% % 2d figure starts here 
+% 
+% figure 
+% 
+% 
+% 
+% %low temp ones first 
+% 
+% load('TC_fluence_temp_data_samples_2_3.mat','fit1_1','fit1_2','fit2_1','fit2_2','map_diffuse_1','map_diffuse_2','p')
+% 
+% 
+% 
+% 
+% % getting the errorbars
+% h1=errorbar(fit1_1(ind),map_diffuse_1(ind),LTLD_std_diffuse(ind),'bd','MarkerFaceColor','k','MarkerEdgeColor','k')
+% hold on
+% 
+% 
+% 
+% 
+% 
+% % finding the values that are zero in the fluence and making them 1E25 for
+% % hte log plot 
+% k2=find(~fit1_1);
+% fit1_1(k2)=1e25;
+% 
+% k2=find(~fit1_2);
+% fit1_2(k2)=1e25;
+% 
+% 
+% ind=1:1:length(p);
+% % ind1=1:1:length(p)-40;
+% % % ind1=1:1:length(p);
+% % % 
+% 
+% % removes the central drop points in LTHD
+% ind1=[1:1:42,48:1:length(p)];
+% 
+% 
+% scatter(fit1_1(ind),map_diffuse_1(ind),60,fit2_1(ind),'d','filled','LineWidth',1.5);
+% set(gca,'xscale','log')
+% grid on
+% xlabel('Fluence (m^{-2})','FontSize',14)
+%  ylabel('Thermal Diffusivity (m^{2}s^{-1})','FontSize',14)
+% set(gcf,'color','w');
+% set(gca,'fontsize',14);
+% c=colorbar;
+% c.Label.String='Temperature (K)';
+% c.FontSize=14;
+% c.Location='eastoutside';
+% 
+% % making it not come in the legend 
+% set(get(get(h1,'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+% 
+% 
+% hold on
+% 
+% 
+% % getting the errorbars
+% h2=errorbar(fit1_2(ind1),map_diffuse_2(ind1),LTHD_std_diffuse(ind1),'bs','MarkerFaceColor','k','MarkerEdgeColor','k')
+% hold on
+% 
+% % making it not come in the legend 
+% set(get(get(h2,'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+% 
+% 
+% 
+% scatter(fit1_2(ind1),map_diffuse_2(ind1),60,fit2_2(ind1),'s','filled','LineWidth',1.5);
+% % legend('HT HD','HT LD','LT LD','LT HD')
+% % legend('boxoff')
+% % legend('orientation','horizontal')
+% axis([1e25 .2e28 4.8e-5 7e-5])
+% 
+% hold on
+% 
+% 
+% % HTLD
+% % getting the errorbars
+% h4=errorbar(hfit1_2(hind),hmap_diffuse_2(hind),HTLD_std_diffuse(hind),'r^','MarkerFaceColor','k','MarkerEdgeColor','k')
+% hold on
+% 
+% % making it not come in the legend 
+% set(get(get(h4,'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+% 
+% 
+% scatter(hfit1_2(hind),hmap_diffuse_2(hind),60,hfit2_2(hind),'^','filled','LineWidth',1.5);
+%  set(gca,'xscale','log')
+% xticks([1e25 1e26 1e27])
+% xticklabels({'Ref.','10^{26}','10^{27}'})
+% hold on 
+% 
+% 
+% % getting the errorbars
+% h3=errorbar(hfit1_1(hind),hmap_diffuse_1(hind),HTHD_std_diffuse(hind),'ro','MarkerFaceColor','k','MarkerEdgeColor','k')
+% hold on
+% 
+% % making it not come in the legend 
+% set(get(get(h3,'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+% 
+% 
+% 
+% scatter(hfit1_1(hind),hmap_diffuse_1(hind),60,hfit2_1(hind),'o','filled','LineWidth',1.5);
+%  set(gca,'xscale','log')
+% grid on
+% xlabel('Fluence (m^{-2})','FontSize',14)
+% %  ylabel('Temperature (K)','FontSize',14)
+% set(gcf,'color','w');
+% set(gca,'fontsize',14);
+% 
+% 
+% 
+% 
+% legend('LTLD','LTHD','HTLD','HTHD','Location','northeast','Orientation','horizontal')
+% 
+% hold off 
+% 
